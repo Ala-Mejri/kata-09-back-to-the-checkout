@@ -14,7 +14,7 @@ There are also some unit and integration tests that cover the important function
 ### Flexible Pricing Rules
 Since we are in the spring, I have added a pricing pules for the current season.
 However, since the design is flexible, we can switch or add other pricing rules for summer, winter, or Black Friday, for example.
-We can switch the pricing rule easily without modifying the code in our ```AppServiceProvider```.
+We can switch the active pricing rule easily in our ```AppServiceProvider``` without the need to change the code itself.
 
 
 ### I. Environment
