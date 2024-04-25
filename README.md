@@ -1,4 +1,4 @@
-# Kata09: Back to the Checkout
+# Coding Challenge: Back To The Checkout
 
 ## The Problem
 http://codekata.com/kata/kata09-back-to-the-checkout/
@@ -62,7 +62,8 @@ To check how the application handles invalid skus, please test the following end
 - Currently, not every piece of code is covered by tests. We can add more tests to cover the rest of them.
 #### V.3. Request validation
 - In our controller, we can add some request validation to make sure the skus we are receiving from the user have a valid format.
-
+#### V.4. Design & Architecture
+- Since this is a simple task, no sophisticated architecture was used; however, when the application grows, it will make sense to use something like clean architecture or DDD, for example.
 
 ### VI. Feedback
 I will be looking forward to your feedback!
