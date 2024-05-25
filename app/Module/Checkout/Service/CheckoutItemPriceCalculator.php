@@ -10,7 +10,7 @@ use App\Module\PricingRule\Service\PricingRuleCalculatorService;
 
 class CheckoutItemPriceCalculator
 {
-    public function __construct(private PricingRuleCalculatorService $pricingRuleCalculatorService)
+    public function __construct(private readonly PricingRuleCalculatorService $pricingRuleCalculatorService)
     {
     }
 

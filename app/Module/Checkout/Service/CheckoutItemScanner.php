@@ -8,7 +8,7 @@ use App\Module\Checkout\ValueObject\CheckoutItem;
 use App\Module\Item\Model\Item;
 use App\Module\PricingRule\Collection\PricingRuleCollection;
 
-final class Checkout
+final class CheckoutItemScanner
 {
     /** @var CheckoutItem[] */
     private array $checkoutItems = [];

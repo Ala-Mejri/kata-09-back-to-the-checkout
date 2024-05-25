@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Module\Item\Builder;
+namespace App\Module\Item\Service;
 
 use App\Module\Item\Collection\ItemCollection;
 use App\Module\Item\Exception\InvalidItemSkuException;

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
-use App\Module\Checkout\Service\Checkout;
+use App\Module\Checkout\Service\CheckoutItemScanner;
 use App\Module\Checkout\Service\CheckoutItemPriceCalculator;
 use App\Module\Checkout\ValueObject\CheckoutItem;
 use App\Module\Item\Exception\InvalidItemSkuException;
 use App\Module\Item\Factory\ItemFactory;
-use App\Module\PricingRule\Builder\SpringSalePricingRulesBuilder;
+use App\Module\PricingRule\Service\SpringSalePricingRulesBuilder;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\CoversFunction;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -18,20 +18,20 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 
-#[CoversClass(Checkout::class)]
+#[CoversClass(CheckoutItemScanner::class)]
 #[CoversFunction('getTotal')]
-class CheckoutTest extends TestCase
+class CheckoutItemScannerTest extends TestCase
 {
     use ProphecyTrait;
 
     private ObjectProphecy $checkoutItemPriceCalculator;
-    private Checkout $checkout;
+    private CheckoutItemScanner $checkoutItemScanner;
 
     protected function setUp(): void
     {
         $this->checkoutItemPriceCalculator = $this->prophesize(CheckoutItemPriceCalculator::class);
 
-        $this->checkout = new Checkout($this->checkoutItemPriceCalculator->reveal());
+        $this->checkoutItemScanner = new CheckoutItemScanner($this->checkoutItemPriceCalculator->reveal());
     }
 
     /**
@@ -43,10 +43,10 @@ class CheckoutTest extends TestCase
     {
         // Arrange
         $pricingRules = (new SpringSalePricingRulesBuilder())->build();
+        $this->checkoutItemScanner->setPricingRules($pricingRules);
 
         foreach ($items as $item) {
-            $this->checkout->setPricingRules($pricingRules);
-            $this->checkout->scan($item);
+            $this->checkoutItemScanner->scan($item);
         }
 
         foreach ($checkoutItems as $checkoutItem) {
@@ -56,7 +56,7 @@ class CheckoutTest extends TestCase
         }
 
         // Act
-        $actualResult = $this->checkout->getTotal();
+        $actualResult = $this->checkoutItemScanner->getTotal();
 
         // Assert
         $this->assertEquals($expectedResult, $actualResult);

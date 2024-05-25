@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Module\PricingRule\Builder;
+namespace App\Module\PricingRule\Service;
 
 use App\Module\Item\Exception\InvalidItemSkuException;
 use App\Module\PricingRule\Collection\PricingRuleCollection;

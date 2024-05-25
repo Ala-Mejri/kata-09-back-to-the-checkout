@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Integration;
 
-use App\Module\Checkout\Service\Checkout;
+use App\Module\Checkout\Service\CheckoutItemScanner;
 use App\Module\Item\Exception\InvalidItemSkuException;
 use App\Module\Item\Factory\ItemFactory;
-use App\Module\PricingRule\Builder\SpringSalePricingRulesBuilder;
+use App\Module\PricingRule\Service\SpringSalePricingRulesBuilder;
 use Illuminate\Support\Facades\App;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\CoversFunction;
@@ -15,9 +15,9 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(Checkout::class)]
+#[CoversClass(CheckoutItemScanner::class)]
 #[CoversFunction('getTotal')]
-class CheckoutTest extends TestCase
+class CheckoutItemScannerTest extends TestCase
 {
     /**
      * @throws InvalidItemSkuException
@@ -27,21 +27,21 @@ class CheckoutTest extends TestCase
     public function testCheckoutShouldReturnCorrectTotal(array $items, float $expectedResult): void
     {
         // Arrange
-        $checkout = App::make(Checkout::class);
-        assert($checkout instanceof Checkout);
+        $checkoutItemScanner = App::make(CheckoutItemScanner::class);
+        assert($checkoutItemScanner instanceof CheckoutItemScanner);
 
         $springSalePricingRulesBuilder = App::make(SpringSalePricingRulesBuilder::class);
         assert($springSalePricingRulesBuilder instanceof SpringSalePricingRulesBuilder);
 
         $pricingRules = $springSalePricingRulesBuilder->build();
-        $checkout->setPricingRules($pricingRules);
+        $checkoutItemScanner->setPricingRules($pricingRules);
 
         foreach ($items as $item) {
-            $checkout->scan($item);
+            $checkoutItemScanner->scan($item);
         }
 
         // Act
-        $actualResult = $checkout->getTotal();
+        $actualResult = $checkoutItemScanner->getTotal();
 
         // Assert
         $this->assertEquals($expectedResult, $actualResult);

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Module\PricingRule\Builder\SpringSalePricingRulesBuilder;
-use App\Module\PricingRule\Builder\PricingRulesBuilderInterface;
+use App\Module\PricingRule\Service\PricingRulesBuilderInterface;
+use App\Module\PricingRule\Service\SpringSalePricingRulesBuilder;
 use App\Shared\Response\JsonResponse;
 use App\Shared\Response\ResponseInterface;
 use Illuminate\Support\ServiceProvider;
